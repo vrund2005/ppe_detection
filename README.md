@@ -95,12 +95,18 @@ Example training code:
 ```python
 from ultralytics import YOLO
 
-model = YOLO("yolov8n.pt")
+model = YOLO("yolov8n.pt")   # nano — trains ~4x faster than small, good enough for 500/class
 
-model.train(
-    data="data.yaml",
-    epochs=50,
-    imgsz=640
+results = model.train(
+    data="ppe_reduced/data.yaml",   # ← your reduced dataset
+    epochs=60,                       # fewer epochs needed — smaller dataset converges faster
+    patience=15,
+    imgsz=640,
+    batch=32,                        # can increase batch since dataset is smaller
+    device=0,
+    project="runs/ppe",
+    name="reduced_v1",
+    pretrained=True,
 )
 ```
 
@@ -120,6 +126,6 @@ model.train(
 
 **Patel Vrund Kalpeshbhai**
 
-B.Tech Data Science
+B.Tech - Data Science
 
 ---
